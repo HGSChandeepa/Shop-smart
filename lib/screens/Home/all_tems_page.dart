@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_list/screens/add_item_page.dart';
-import 'package:shop_list/screens/edit_item_page.dart';
+import 'package:shop_list/screens/Home/add_item_page.dart';
+import 'package:shop_list/screens/Home/edit_item_page.dart';
 
 class AllItemsPage extends StatefulWidget {
   const AllItemsPage({super.key});
