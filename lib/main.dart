@@ -1,6 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_list/screens/Home/all_tems_page.dart';
 import 'package:shop_list/screens/wrapper.dart';
 
 Future<void> main() async {
@@ -14,8 +14,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Wrapper(),
-    );
+    //here we are listning to the auth steam using the srteam builder
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            return MaterialApp(
+              title: 'Flutter Demo',
+              home: Wrapper(user: snapshot.data),
+            );
+          }
+        });
   }
 }

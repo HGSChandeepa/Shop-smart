@@ -22,7 +22,7 @@ class EditItemPage extends StatefulWidget {
 class _EditItemPageState extends State<EditItemPage> {
   final TextEditingController itemNameController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
-  DataBaseConfig firebaseService = DataBaseConfig();
+  DataBaseConfig firebaseService = DataBaseConfig(uid: '');
 
   @override
   void initState() {

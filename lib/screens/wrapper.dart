@@ -1,17 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_list/screens/Authentication/sign_in.dart';
+import 'package:shop_list/screens/Authentication/authenticate.dart';
+import 'package:shop_list/screens/Home/all_tems_page.dart';
 
 //this is the wrapper for check the auth state
-class Wrapper extends StatefulWidget {
-  const Wrapper({super.key});
+class Wrapper extends StatelessWidget {
+  const Wrapper({super.key, required this.user});
 
-  @override
-  State<Wrapper> createState() => _WrapperState();
-}
+  //user
+  final User? user;
 
-class _WrapperState extends State<Wrapper> {
   @override
   Widget build(BuildContext context) {
-    return SignIn();
+    if (user == null) {
+      return const Authenticate();
+    } else {
+      return const AllItemsPage();
+    }
   }
 }

@@ -15,7 +15,7 @@ class _AddNewItemState extends State<AddNewItem> {
   //variables of the input item name and item count
   late String _itemName;
   late int _amount;
-  DataBaseConfig firebaseService = DataBaseConfig();
+  DataBaseConfig firebaseService = DataBaseConfig(uid: '');
 
   //this is the function that is use to add a new item and also tis will add the data to the firestore
 
