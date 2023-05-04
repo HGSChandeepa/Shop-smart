@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:shop_list/services/database.dart';
 
 class AddNewItem extends StatefulWidget {
-  const AddNewItem({super.key});
+  const AddNewItem({super.key, required this.uid});
 
+  //uid
+  final String uid;
   @override
   State<AddNewItem> createState() => _AddNewItemState();
 }
@@ -67,7 +69,7 @@ class _AddNewItemState extends State<AddNewItem> {
               ElevatedButton(
                   onPressed: () async {
                     await firebaseService
-                        .addItem(_itemName, _amount)
+                        .addItem(_itemName, _amount, widget.uid)
                         .then((value) => Navigator.pop(context));
                   },
                   child: const Text("Add Item"))

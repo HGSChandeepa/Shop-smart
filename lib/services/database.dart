@@ -19,9 +19,9 @@ class DataBaseConfig {
   }
 
   //add a new item to the database
-  Future<void> addItem(String itemName, int itemAmount) async {
+  Future<void> addItem(String itemName, int itemAmount, String ui) async {
     try {
-      await FirebaseFirestore.instance.collection("shoplist").add({
+      await FirebaseFirestore.instance.doc(uid).collection("shoplist").add({
         'itemName': itemName,
         'amount': itemAmount,
       });

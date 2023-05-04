@@ -3,7 +3,8 @@ import 'package:shop_list/screens/Authentication/sign_in.dart';
 import 'package:shop_list/services/auth.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  final Function togglePage;
+  const Register({super.key, required this.togglePage});
 
   @override
   State<Register> createState() => _RegisterState();
@@ -66,6 +67,7 @@ class _RegisterState extends State<Register> {
                     if (_formKey.currentState!.validate()) {
                       dynamic result = await _auth.registerWithEmailAndPassword(
                           email, password);
+                      //go to all-items page
 
                       if (result == null) {
                         setState(() {
@@ -91,7 +93,8 @@ class _RegisterState extends State<Register> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignIn(),
+                        builder: (context) =>
+                            SignIn(togglePage: widget.togglePage),
                       ),
                     );
                   },

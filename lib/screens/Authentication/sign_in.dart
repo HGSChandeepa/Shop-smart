@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shop_list/screens/Authentication/register.dart';
+import 'package:shop_list/screens/Home/all_tems_page.dart';
 import 'package:shop_list/services/auth.dart';
-//in this page we are looging the user is loged in or not and show the login or register page
 
 class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+  final Function togglePage;
+  const SignIn({super.key, required this.togglePage});
 
   @override
-  State<SignIn> createState() => _SignInState();
+  _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  //the auth data
   final AuthService _auth = AuthService();
-  //form key for check the errors
   final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
@@ -31,7 +30,6 @@ class _SignInState extends State<SignIn> {
             key: _formKey,
             child: Column(
               children: [
-                //email feild
                 TextFormField(
                   validator: (value) =>
                       value?.isEmpty == true ? "Enter a valid Email" : null,
@@ -44,7 +42,6 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(
                   height: 20,
                 ),
-                //password feild
                 TextFormField(
                   obscureText: true,
                   validator: (value) =>
@@ -58,20 +55,23 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(
                   height: 20,
                 ),
-
-                //signin button
                 ElevatedButton(
                   onPressed: () async {
-                    //here check the form is valid. then if the form isvalid,
-                    //we can add the data to the firebase
                     if (_formKey.currentState!.validate()) {
-                      //take take the result
                       dynamic result = await _auth.signInWithEmailAndPassword(
                           email, password);
                       if (result == null) {
                         setState(() {
                           error = "Coulld not signin this user please register";
                         });
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                AllItemsPage(currentUser: result),
+                          ),
+                        );
                       }
                     }
                   },
@@ -88,13 +88,15 @@ class _SignInState extends State<SignIn> {
                   height: 20,
                 ),
                 const Text("Feel Free to Register"),
-
-                //register page
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Register()),
+                      MaterialPageRoute(
+                        builder: (context) => Register(
+                          togglePage: widget.togglePage,
+                        ),
+                      ),
                     );
                   },
                   child: const Text("Register"),
